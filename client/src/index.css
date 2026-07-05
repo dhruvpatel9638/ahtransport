@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  
+  --color-brand-navy: #0F2B46;
+  --color-brand-steel: #2F5D7E;
+  --color-brand-orange: #F57C00;
+  --color-brand-light-gray: #EEF2F6;
+  --color-brand-charcoal: #1F2937;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-brand-charcoal);
+  background-color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #EEF2F6;
+}
+::-webkit-scrollbar-thumb {
+  background: #2F5D7E;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0F2B46;
+}
+
+/* Infinite Loop Marquee */
+@keyframes marquee {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Custom Preloader Truck Keyframes */
+@keyframes infinite-road {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+@keyframes truck-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.5px); }
+}
+
+@keyframes wheel-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-infinite-road {
+  animation: infinite-road 1.2s linear infinite;
+}
+
+.animate-truck-bounce {
+  animation: truck-bounce 0.18s ease-in-out infinite;
+}
+
+.animate-wheel-spin {
+  animation: wheel-spin 0.6s linear infinite;
+}
