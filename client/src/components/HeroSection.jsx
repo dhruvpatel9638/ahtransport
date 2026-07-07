@@ -1,6 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Navigation, Truck, Bell, ArrowRight } from 'lucide-react';
+import SplitType from 'split-type';
+
+const Hero3DCanvas = React.lazy(() => import('./Hero3DCanvas'));
+
+function MagneticButton({ children, onClick, className }) {
+  const ref = useRef(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const { left, top, width, height } = ref.current.getBoundingClientRect();
+    const x = clientX - (left + width / 2);
+    const y = clientY - (top + height / 2);
+    setPosition({ x: x * 0.35, y: y * 0.35 });
+  };
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 0, y: 0 });
+  };
+
+  return (
+    <motion.button
+      ref={ref}
+      onClick={onClick}
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      animate={{ x: position.x, y: position.y }}
+      transition={{ type: "spring", stiffness: 120, damping: 18, mass: 0.1 }}
+    >
+      {children}
+    </motion.button>
+  );
+}
 
 function CountUp({ end, duration = 1200, suffix = "" }) {
   const [count, setCount] = useState(0);
@@ -24,6 +58,46 @@ function CountUp({ end, duration = 1200, suffix = "" }) {
 }
 
 export default function HeroSection({ onQuoteClick, onContactClick }) {
+  const headingRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+      setIsMobile(window.innerWidth < 768 || isCoarse);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (headingRef.current) {
+      const splitText = new SplitType(headingRef.current, { types: 'chars,words' });
+      splitText.chars.forEach((char) => {
+        char.style.opacity = '0';
+        char.style.transform = 'translateY(15px)';
+        char.style.display = 'inline-block';
+        char.style.transition = 'none';
+      });
+
+      const timeout = setTimeout(() => {
+        splitText.chars.forEach((char, index) => {
+          setTimeout(() => {
+            char.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            char.style.opacity = '1';
+            char.style.transform = 'translateY(0)';
+          }, index * 20);
+        });
+      }, 400);
+
+      return () => {
+        clearTimeout(timeout);
+        splitText.revert();
+      };
+    }
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -59,6 +133,13 @@ export default function HeroSection({ onQuoteClick, onContactClick }) {
         </svg>
       </div>
 
+      {/* 3D background canvas layer */}
+      {!isMobile && (
+        <React.Suspense fallback={null}>
+          <Hero3DCanvas />
+        </React.Suspense>
+      )}
+
       {/* Hero Content Wrapper */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-grow flex items-center justify-center z-10 py-16 md:py-24">
         <motion.div 
@@ -76,6 +157,7 @@ export default function HeroSection({ onQuoteClick, onContactClick }) {
           </motion.div>
 
           <motion.h1 
+            ref={headingRef}
             className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight font-heading max-w-4xl"
             variants={itemVariants}
           >
@@ -93,19 +175,19 @@ export default function HeroSection({ onQuoteClick, onContactClick }) {
             className="flex flex-col sm:flex-row gap-4 pt-4 justify-center"
             variants={itemVariants}
           >
-            <button
+            <MagneticButton
               onClick={onQuoteClick}
               className="bg-brand-orange hover:bg-brand-orange/95 text-white font-bold py-4 px-8 rounded-sm text-sm uppercase tracking-wider transition-all duration-200 flex items-center justify-center group shadow-lg cursor-pointer"
             >
               Request a Cargo Quote
               <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-200 group-hover:translate-x-1" />
-            </button>
-            <button
+            </MagneticButton>
+            <MagneticButton
               onClick={onContactClick}
               className="border-2 border-brand-steel hover:bg-brand-steel/20 text-white font-bold py-4 px-8 rounded-sm text-sm uppercase tracking-wider transition-all duration-200 flex items-center justify-center cursor-pointer"
             >
               Contact Dispatch
-            </button>
+            </MagneticButton>
           </motion.div>
         </motion.div>
       </div>

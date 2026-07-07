@@ -15,6 +15,8 @@ import Footer from './components/Footer';
 import MarqueeSection from './components/MarqueeSection';
 import { motion, AnimatePresence } from 'framer-motion';
 import logoImg from './assets/AH logo - Copy.png';
+import { ReactLenis } from 'lenis/react';
+import 'lenis/dist/lenis.css';
 
 // Premium mouse follower custom cursor component similar to high-end design themes
 function CustomCursor() {
@@ -214,58 +216,67 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-brand-charcoal select-none antialiased">
-      <AnimatePresence>
-        {!isLoaded && <Preloader progress={progress} />}
-      </AnimatePresence>
-      <CustomCursor />
-      {/* 1. Navbar */}
-      <Navbar onQuoteClick={scrollToQuoteForm} />
+    <ReactLenis root>
+      <div className="min-h-screen bg-white text-brand-charcoal select-none antialiased">
+        <AnimatePresence>
+          {!isLoaded && <Preloader progress={progress} />}
+        </AnimatePresence>
+        <CustomCursor />
+        
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 10 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* 1. Navbar */}
+          <Navbar onQuoteClick={scrollToQuoteForm} />
 
-      {/* 2. Hero Section */}
-      <HeroSection 
-        onQuoteClick={scrollToQuoteForm} 
-        onContactClick={scrollToQuoteForm} 
-      />
+          {/* 2. Hero Section */}
+          <HeroSection 
+            onQuoteClick={scrollToQuoteForm} 
+            onContactClick={scrollToQuoteForm} 
+          />
 
-      {/* Infinite loop scrolling marquee */}
-      <MarqueeSection />
+          {/* Infinite loop scrolling marquee */}
+          <MarqueeSection />
 
-      {/* 3. Company Overview */}
-      <CompanyIntroSection />
+          {/* 3. Company Overview */}
+          <CompanyIntroSection />
 
-      {/* 4. Services Section */}
-      <ServicesSection onQuoteClick={scrollToQuoteForm} />
+          {/* 4. Services Section */}
+          <ServicesSection onQuoteClick={scrollToQuoteForm} />
 
-      {/* 5. Why Choose Us */}
-      <WhyChooseUsSection />
+          {/* 5. Why Choose Us */}
+          <WhyChooseUsSection />
 
-      {/* 6. Fleet Section */}
-      <FleetSection />
+          {/* 6. Fleet Section */}
+          <FleetSection />
 
-      {/* 7. Coverage Section */}
-      <CoverageSection />
+          {/* 7. Coverage Section */}
+          <CoverageSection />
 
-      {/* 8. Industries We Serve */}
-      <IndustriesSection />
+          {/* 8. Industries We Serve */}
+          <IndustriesSection />
 
-      {/* 9. Process Section */}
-      <ProcessSection />
+          {/* 9. Process Section */}
+          <ProcessSection />
 
-      {/* 10. Trust / Commitment Section */}
-      <TrustSection />
+          {/* 10. Trust / Commitment Section */}
+          <TrustSection />
 
-      {/* 11. CTA Banner */}
-      <CtaSection 
-        onQuoteClick={scrollToQuoteForm} 
-        onContactClick={scrollToQuoteForm} 
-      />
+          {/* 11. CTA Banner */}
+          <CtaSection 
+            onQuoteClick={scrollToQuoteForm} 
+            onContactClick={scrollToQuoteForm} 
+          />
 
-      {/* 12. Contact & Quote Request Form */}
-      <ContactSection formRef={formRef} />
+          {/* 12. Contact & Quote Request Form */}
+          <ContactSection formRef={formRef} />
 
-      {/* 13. Footer */}
-      <Footer />
-    </div>
+          {/* 13. Footer */}
+          <Footer />
+        </motion.div>
+      </div>
+    </ReactLenis>
   );
 }

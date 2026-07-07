@@ -13,7 +13,7 @@ export default function CompanyIntroSection() {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left Block: Content */}
           <div className="lg:col-span-7 space-y-6 text-left">
             <div className="flex items-center space-x-2">
@@ -66,7 +66,7 @@ export default function CompanyIntroSection() {
           </div>
 
           {/* Right Block: Graphic representation of our hub */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 lg:sticky lg:top-32 self-start">
             <div className="relative p-6 bg-brand-light-gray border border-gray-200 rounded-sm">
               <div className="absolute top-0 left-0 bg-brand-navy text-white text-[10px] uppercase font-bold py-1 px-3.5 tracking-wider">
                 Strategic Node

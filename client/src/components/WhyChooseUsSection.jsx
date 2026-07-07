@@ -35,6 +35,23 @@ export default function WhyChooseUsSection() {
       description: 'Direct contact with management (MR ANKIT PATEL) and primary dispatchers ensures fast resolution of transport issues.',
     },
   ];
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  };
 
   return (
     <motion.section 
@@ -60,12 +77,19 @@ export default function WhyChooseUsSection() {
         </div>
 
         {/* Feature Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {points.map((point, index) => {
             const Icon = point.icon;
             return (
-              <div 
+              <motion.div 
                 key={index} 
+                variants={itemVariants}
                 className="bg-brand-light-gray/50 border border-gray-200/80 p-6 rounded-sm hover:bg-white hover:shadow-lg hover:border-brand-orange/40 hover:-translate-y-1.5 transition-all duration-300 text-left space-y-4 group"
               >
                 <div className="w-10 h-10 bg-brand-steel/10 text-brand-steel rounded-sm flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
@@ -77,10 +101,10 @@ export default function WhyChooseUsSection() {
                 <p className="text-brand-charcoal text-xs sm:text-sm leading-relaxed font-light">
                   {point.description}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );

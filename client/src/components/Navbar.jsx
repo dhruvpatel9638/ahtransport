@@ -58,10 +58,12 @@ export default function Navbar({ onQuoteClick }) {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
-                className="text-gray-300 hover:text-brand-orange font-medium text-sm transition-colors duration-200 uppercase tracking-wider relative group"
+                className="font-medium text-sm uppercase tracking-wider relative group overflow-hidden h-5 block cursor-pointer"
               >
-                {link.name}
-                <span className="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-brand-orange transition-all duration-300 group-hover:w-full"></span>
+                <div className="transition-transform duration-300 transform group-hover:-translate-y-1/2">
+                  <span className="block text-gray-300">{link.name}</span>
+                  <span className="block text-brand-orange">{link.name}</span>
+                </div>
               </a>
             ))}
           </div>

@@ -2,6 +2,34 @@ import React from 'react';
 import { Map, Globe, Warehouse, Navigation, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+function HoverSwapArrow() {
+  return (
+    <div className="relative w-4 h-4 overflow-hidden ml-1.5 flex items-center justify-center">
+      <motion.div
+        className="absolute"
+        variants={{
+          initial: { x: 0, opacity: 1 },
+          hover: { x: 20, opacity: 0 }
+        }}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+      >
+        <ArrowRight className="w-4 h-4 text-brand-orange" />
+      </motion.div>
+      <motion.div
+        className="absolute"
+        initial={{ x: -20, opacity: 0 }}
+        variants={{
+          initial: { x: -20, opacity: 0 },
+          hover: { x: 0, opacity: 1 }
+        }}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+      >
+        <ArrowRight className="w-4 h-4 text-brand-navy" />
+      </motion.div>
+    </div>
+  );
+}
+
 export default function ServicesSection({ onQuoteClick }) {
   const services = [
     {
@@ -29,6 +57,23 @@ export default function ServicesSection({ onQuoteClick }) {
       features: ['GPS tracking status verification', 'Regular WhatsApp & phone updates', 'Dedicated emergency dispatch support'],
     },
   ];
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  };
 
   return (
     <motion.section 
@@ -56,12 +101,19 @@ export default function ServicesSection({ onQuoteClick }) {
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
-              <div 
+              <motion.div 
                 key={index} 
+                variants={itemVariants}
                 className="bg-white border border-gray-200 rounded-sm p-8 shadow-sm hover:shadow-lg hover:border-brand-orange/50 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group text-left"
               >
                 <div className="space-y-6">
@@ -89,18 +141,20 @@ export default function ServicesSection({ onQuoteClick }) {
                 </div>
 
                 <div className="pt-6 mt-6">
-                  <button 
+                  <motion.button 
+                    whileHover="hover"
+                    initial="initial"
                     onClick={onQuoteClick}
-                    className="text-brand-orange font-bold text-xs uppercase tracking-wider flex items-center group/btn hover:text-brand-navy transition-colors cursor-pointer"
+                    className="text-brand-orange font-bold text-xs uppercase tracking-wider flex items-center hover:text-brand-navy transition-colors cursor-pointer"
                   >
                     Request Service
-                    <ArrowRight className="w-4 h-4 ml-1.5 transition-transform duration-200 group-hover/btn:translate-x-1" />
-                  </button>
+                    <HoverSwapArrow />
+                  </motion.button>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );
