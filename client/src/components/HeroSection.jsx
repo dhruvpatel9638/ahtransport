@@ -172,13 +172,7 @@ export default function HeroSection({ onQuoteClick, onContactClick }) {
             initial="hidden"
             animate="visible"
           >
-            <motion.div
-              className="inline-flex items-center space-x-2 bg-brand-steel/30 border border-brand-steel/50 px-3.5 py-1.5 rounded-sm"
-              variants={itemVariants}
-            >
-              <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
-              <span className="text-white text-xs font-bold uppercase tracking-widest">Gujarat &amp; National Route Strength</span>
-            </motion.div>
+
 
             <motion.h1
               ref={headingRef}
