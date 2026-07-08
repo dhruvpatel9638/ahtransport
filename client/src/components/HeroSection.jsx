@@ -166,62 +166,74 @@ export default function HeroSection({ onQuoteClick, onContactClick }) {
           <source src="/hero-bg-loop.mp4" type="video/mp4" />
         </video>
 
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-start z-10 pt-20">
-          <motion.div
-            className="space-y-8 text-left flex flex-col items-start lg:max-w-[60%] md:max-w-[75%] w-full"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <motion.span
-              variants={itemVariants}
-              className="text-brand-orange text-xs font-bold uppercase tracking-[0.2em] block"
-            >
-              TRUSTED ACROSS GUJARAT, NORTH &amp; CENTRAL INDIA
-            </motion.span>
-
-            <motion.h1
-              ref={headingRef}
-              className="text-4xl sm:text-5xl lg:text-[4.25rem] text-white leading-[1.15] font-heading tracking-[-0.025em] w-full"
-              variants={itemVariants}
-            >
-              <span className="font-extrabold block">Consistency You Can Count On,</span>
-              <span className="font-light text-gray-300 block italic mt-1">Route After Route</span>
-            </motion.h1>
-
-            <motion.p
-              className="text-base sm:text-lg text-white/80 max-w-[550px] font-light leading-relaxed tracking-[0.015em]"
-              variants={itemVariants}
-            >
-              AH Transport helps factories, warehouses, and manufacturing plants move commercial goods across Gujarat, North, West, and Central India. Built on reliability, operational coordination, and route strength.
-            </motion.p>
-
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 pt-20">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 lg:gap-12 w-full">
+            {/* Left side: content (Headline + Short body text) */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 pt-2 justify-start w-full"
-              variants={itemVariants}
+              className="space-y-6 text-left flex flex-col items-start lg:max-w-[58%] w-full"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
             >
-              <MagneticButton
-                onClick={onQuoteClick}
-                whileHover={{
-                  scale: 1.03,
-                  boxShadow: '0 0 25px rgba(245, 124, 0, 0.65)'
-                }}
-                className="bg-brand-orange hover:bg-brand-orange/95 text-white font-bold py-4 px-8 rounded-sm text-sm uppercase tracking-wider transition-all duration-200 flex items-center justify-center group shadow-lg cursor-pointer opacity-100"
+              <motion.span
+                variants={itemVariants}
+                className="text-brand-orange text-xs font-bold uppercase tracking-[0.2em] block"
               >
-                Request a Cargo Quote
-                <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-200 group-hover:translate-x-1" />
-              </MagneticButton>
-              <MagneticButton
-                onClick={onContactClick}
-                whileHover={{
-                  scale: 1.03
-                }}
-                className="bg-brand-navy/60 border-2 border-[#4A7D9F] hover:border-white/80 hover:bg-brand-steel/20 text-white font-bold py-4 px-8 rounded-sm text-sm uppercase tracking-wider transition-all duration-200 flex items-center justify-center cursor-pointer opacity-100"
+                TRUSTED ACROSS GUJARAT, NORTH &amp; CENTRAL INDIA
+              </motion.span>
+
+              <motion.h1
+                ref={headingRef}
+                className="text-4xl sm:text-5xl lg:text-[4.25rem] text-white leading-[1.15] font-heading tracking-[-0.025em] w-full"
+                variants={itemVariants}
               >
-                Contact Dispatch
-              </MagneticButton>
+                <span className="font-extrabold block">Consistency You Can Count On,</span>
+                <span className="font-light text-gray-300 block italic mt-1">Route After Route</span>
+              </motion.h1>
+
+              {/* Short body text - 1 to 1.5 lines */}
+              <motion.p
+                className="text-base sm:text-lg text-white/80 max-w-[550px] font-light leading-relaxed tracking-[0.015em]"
+                variants={itemVariants}
+              >
+                AH Transport moves B2B industrial goods across Gujarat and national routes with absolute safety and reliability.
+              </motion.p>
             </motion.div>
-          </motion.div>
+
+            {/* Right side: vertically centered stacked buttons */}
+            <motion.div
+              className="flex flex-col gap-4 w-full lg:w-[35%] justify-center items-stretch"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.div variants={itemVariants} className="w-full">
+                <MagneticButton
+                  onClick={onQuoteClick}
+                  whileHover={{
+                    scale: 1.03,
+                    boxShadow: '0 0 25px rgba(245, 124, 0, 0.65)'
+                  }}
+                  className="w-full bg-brand-orange hover:bg-brand-orange/95 text-white font-bold py-4 px-8 rounded-sm text-sm uppercase tracking-wider transition-all duration-200 flex items-center justify-center group shadow-lg cursor-pointer opacity-100"
+                >
+                  Request a Cargo Quote
+                  <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-200 group-hover:translate-x-1" />
+                </MagneticButton>
+              </motion.div>
+              
+              <motion.div variants={itemVariants} className="w-full">
+                <MagneticButton
+                  onClick={onContactClick}
+                  whileHover={{
+                    scale: 1.03
+                  }}
+                  className="w-full bg-brand-navy/60 border-2 border-[#4A7D9F] hover:border-white/80 hover:bg-brand-steel/20 text-white font-bold py-4 px-8 rounded-sm text-sm uppercase tracking-wider transition-all duration-200 flex items-center justify-center cursor-pointer opacity-100"
+                >
+                  Contact Dispatch
+                </MagneticButton>
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
