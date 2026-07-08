@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Shield, Navigation, Truck, Bell, ArrowRight } from 'lucide-react';
 import SplitType from 'split-type';
 
-function MagneticButton({ children, onClick, className }) {
+function MagneticButton({ children, onClick, className, whileHover }) {
   const ref = useRef(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -27,6 +27,7 @@ function MagneticButton({ children, onClick, className }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       animate={{ x: position.x, y: position.y }}
+      whileHover={whileHover}
       transition={{ type: "spring", stiffness: 120, damping: 18, mass: 0.1 }}
     >
       {children}
@@ -165,36 +166,46 @@ export default function HeroSection({ onQuoteClick, onContactClick }) {
           <source src="/hero-bg-loop.mp4" type="video/mp4" />
         </video>
 
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-center z-10 pt-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-start z-10 pt-20">
           <motion.div
-            className="space-y-6 text-center flex flex-col items-center"
+            className="space-y-8 text-left flex flex-col items-start lg:max-w-[60%] md:max-w-[75%] w-full"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
           >
-
+            <motion.span
+              variants={itemVariants}
+              className="text-brand-orange text-xs font-bold uppercase tracking-[0.2em] block"
+            >
+              TRUSTED ACROSS GUJARAT, NORTH &amp; CENTRAL INDIA
+            </motion.span>
 
             <motion.h1
               ref={headingRef}
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight font-heading max-w-4xl"
+              className="text-4xl sm:text-5xl lg:text-[4.25rem] text-white leading-[1.15] font-heading tracking-[-0.025em] w-full"
               variants={itemVariants}
             >
-              Consistency You Can Count On, Route After Route
+              <span className="font-extrabold block">Consistency You Can Count On,</span>
+              <span className="font-light text-gray-300 block italic mt-1">Route After Route</span>
             </motion.h1>
 
             <motion.p
-              className="text-base sm:text-lg text-gray-300 max-w-2xl font-light leading-relaxed"
+              className="text-base sm:text-lg text-white/80 max-w-[550px] font-light leading-relaxed tracking-[0.015em]"
               variants={itemVariants}
             >
               AH Transport helps factories, warehouses, and manufacturing plants move commercial goods across Gujarat, North, West, and Central India. Built on reliability, operational coordination, and route strength.
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 pt-4 justify-center"
+              className="flex flex-col sm:flex-row gap-4 pt-2 justify-start w-full"
               variants={itemVariants}
             >
               <MagneticButton
                 onClick={onQuoteClick}
+                whileHover={{
+                  scale: 1.03,
+                  boxShadow: '0 0 25px rgba(245, 124, 0, 0.65)'
+                }}
                 className="bg-brand-orange hover:bg-brand-orange/95 text-white font-bold py-4 px-8 rounded-sm text-sm uppercase tracking-wider transition-all duration-200 flex items-center justify-center group shadow-lg cursor-pointer opacity-100"
               >
                 Request a Cargo Quote
@@ -202,7 +213,10 @@ export default function HeroSection({ onQuoteClick, onContactClick }) {
               </MagneticButton>
               <MagneticButton
                 onClick={onContactClick}
-                className="bg-brand-navy border-2 border-brand-steel hover:bg-brand-steel/20 text-white font-bold py-4 px-8 rounded-sm text-sm uppercase tracking-wider transition-all duration-200 flex items-center justify-center cursor-pointer opacity-100"
+                whileHover={{
+                  scale: 1.03
+                }}
+                className="bg-brand-navy/60 border-2 border-[#4A7D9F] hover:border-white/80 hover:bg-brand-steel/20 text-white font-bold py-4 px-8 rounded-sm text-sm uppercase tracking-wider transition-all duration-200 flex items-center justify-center cursor-pointer opacity-100"
               >
                 Contact Dispatch
               </MagneticButton>
