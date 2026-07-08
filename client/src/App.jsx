@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import CompanyIntroSection from './components/CompanyIntroSection';
+import FounderSection from './components/FounderSection';
 import ServicesSection from './components/ServicesSection';
 import WhyChooseUsSection from './components/WhyChooseUsSection';
 import FleetSection from './components/FleetSection';
@@ -242,6 +243,9 @@ export default function App() {
 
           {/* 3. Company Overview */}
           <CompanyIntroSection />
+
+          {/* Founder Profile Section */}
+          <FounderSection />
 
           {/* 4. Services Section */}
           <ServicesSection onQuoteClick={scrollToQuoteForm} />
